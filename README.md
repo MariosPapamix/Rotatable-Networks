@@ -29,9 +29,3 @@ constrained environments, or `all` to run every stage in sequence; the
 stage lists are at the top of each script. All seeds are fixed
 in-script; `results/session_info.txt` records the environment that
 produced the shipped results.
-
-## Before submitting
-Work through `reproducibility/RUN_BEFORE_SUBMISSION.md`; it lists the
-exact remaining runs (S&P csv re-run, optional ABIDE, clean-machine
-make_all), the networked verification gates (citations, official
-template, live ACC form), and the author-only items.

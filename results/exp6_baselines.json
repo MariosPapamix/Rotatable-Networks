@@ -1,0 +1,30 @@
+{
+ "n": 120,
+ "B": 99,
+ "R": 100,
+ "alpha": 0.05,
+ "haar_reference": {
+  "combined": 0.068,
+  "note": "from exp2 level study, same ensemble"
+ },
+ "shuffle": {
+  "combined": 0.51,
+  "per_stat": {
+   "ipr": 0.07,
+   "evks": 0.05,
+   "clust": 0.57,
+   "cv": 0.42,
+   "kurt": 0.0
+  }
+ },
+ "pboot": {
+  "combined": 0.03,
+  "per_stat": {
+   "ipr": 0.02,
+   "evks": 0.07,
+   "clust": 0.1,
+   "cv": 0.03,
+   "kurt": 0.06
+  }
+ }
+}

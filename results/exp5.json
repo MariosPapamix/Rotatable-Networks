@@ -1,0 +1,72 @@
+{
+ "hill": {
+  "Gaussian (spiked GOE)": 6.136926967851729,
+  "spiked $1.5$-stable (Thm 4)": 1.2318520296521702,
+  "air traffic (flows)": 2.916592990036012
+ },
+ "hill_delocalized": 1.6322223215063973,
+ "diag": {
+  "Gaussian": {
+   "raw": {
+    "kurt": 0.72,
+    "ipr": 0.665
+   },
+   "gauss": {
+    "kurt": 0.55,
+    "ipr": 0.77
+   }
+  },
+  "stable, SaS factors": {
+   "raw": {
+    "kurt": 0.005,
+    "ipr": 0.005
+   },
+   "gauss": {
+    "kurt": 1.0,
+    "ipr": 0.005
+   }
+  },
+  "stable, deloc. spikes": {
+   "raw": {
+    "kurt": 0.005,
+    "ipr": 0.005
+   },
+   "gauss": {
+    "kurt": 0.825,
+    "ipr": 0.805
+   }
+  },
+  "air traffic": {
+   "raw": {
+    "kurt": 0.02,
+    "ipr": 0.005
+   },
+   "gauss": {
+    "kurt": 1.0,
+    "ipr": 0.015
+   },
+   "gauss_seeds": [
+    {
+     "kurt": 1.0,
+     "ipr": 0.015
+    },
+    {
+     "kurt": 1.0,
+     "ipr": 0.005
+    },
+    {
+     "kurt": 1.0,
+     "ipr": 0.01
+    },
+    {
+     "kurt": 1.0,
+     "ipr": 0.015
+    },
+    {
+     "kurt": 1.0,
+     "ipr": 0.005
+    }
+   ]
+  }
+ }
+}

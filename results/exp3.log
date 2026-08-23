@@ -1,0 +1,4 @@
+HCP FC p-values: {'ipr': 0.004, 'clust': 0.836, 'mod': 1.0, 'cv': 1.0, 'kurt': 0.002}
+S&P windows: (28, 4) median p per stat: [0.405 0.01  1.    1.   ]
+flights n: 183 p: {'ipr': 0.01, 'clust': 0.005, 'mod': 1.0, 'cv': 0.005, 'kurt': 0.045}
+exp3 done

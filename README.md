@@ -1,8 +1,7 @@
-# Rotatable Networks: code, data, and manuscript
+# Rotatable Networks: code and data
 
-Reproduction package for "Rotatable Networks" (JASA Theory & Methods
-submission).
-Structure follows the jasa-acs reproducibility template: one script per
+Reproduction package for "Rotatable Networks" paper.
+Structure follows the reproducibility template: one script per
 figure/table, pinned environment, recorded session info, fixed seeds.
 
 ## Layout

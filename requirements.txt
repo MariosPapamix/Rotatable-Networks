@@ -1,0 +1,9 @@
+# Environment used to produce every number and figure in the paper.
+# Python 3.12.3
+numpy==2.4.4
+scipy==1.17.1
+pandas==3.0.2
+scikit-learn==1.8.0
+matplotlib==3.10.8
+# Only needed for fetch_real_data.py abide (not used by the shipped analyses):
+# nilearn>=0.10

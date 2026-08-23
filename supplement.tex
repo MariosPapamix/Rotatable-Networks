@@ -1,0 +1,96 @@
+% Supplement to "Rotatable Networks". Compile AFTER main.tex so that
+% xr can resolve cross-references into main.aux:
+%   pdflatex main && bibtex main && pdflatex main && pdflatex main
+%   pdflatex supplement && bibtex supplement && pdflatex supplement x2
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage[protrusion=true,expansion=false]{microtype}
+\usepackage[round]{natbib}
+\usepackage{setspace}
+\usepackage{caption}
+\usepackage{enumitem}
+\usepackage{xr}
+% xr imports main.aux; suppress its \bibcite lines so shared citations
+% are not defined twice (they are re-defined identically by supplement.aux)
+\makeatletter
+\let\saved@bibcite\bibcite
+\def\bibcite#1#2{}
+\externaldocument{main}
+\let\bibcite\saved@bibcite
+\makeatother
+\usepackage{xcolor}
+\definecolor{linkink}{RGB}{28,60,120}
+\usepackage[colorlinks=true,linkcolor=linkink,citecolor=linkink,urlcolor=linkink]{hyperref}
+\captionsetup{font={small,stretch=1.05},labelfont=bf}
+
+\doublespacing
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\renewcommand{\thesection}{S\arabic{section}}
+\renewcommand{\thetheorem}{S\arabic{theorem}}
+\renewcommand{\theproposition}{S\arabic{proposition}}
+\renewcommand{\thecorollary}{S\arabic{corollary}}
+\renewcommand{\thelemma}{S\arabic{lemma}}
+\renewcommand{\theremark}{S\arabic{remark}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\theequation}{S\arabic{equation}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\OO}{\mathbb{O}}
+\newcommand{\eqd}{\overset{d}{=}}
+\newcommand{\tod}{\overset{d}{\to}}
+\newcommand{\toas}{\overset{\mathrm{a.s.}}{\to}}
+\newcommand{\toP}{\overset{P}{\to}}
+\newcommand{\iid}{\overset{\mathrm{iid}}{\sim}}
+\newcommand{\Sym}{\mathrm{Sym}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\spec}{\operatorname{spec}}
+\newcommand{\hollow}{\operatorname{hollow}}
+\newcommand{\Haar}{\mathrm{Haar}}
+\newcommand{\GOE}{\mathrm{GOE}}
+\newcommand{\SaS}{\mathrm{S}\alpha\mathrm{S}}
+\newcommand{\lam}{\lambda}
+\newcommand{\blam}{\bm{\lambda}}
+\newcommand{\bgam}{\bm{\gamma}}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\title{\bfseries Supplement to ``Rotatable Networks''}
+
+\author{Author names blinded for review}
+\date{}
+
+\begin{document}
+\maketitle
+
+This Supplement contains the formal statements deferred from the main
+text (Section~S1), all proofs (Section~S2), additional experimental
+details (Section~S3), and the data and computation appendix
+(Section~S4). Cross-references of the form Theorem~1 or
+equation~\eqref{eq:rep} point to the main text.
+
+\input{supp_statements}
+\input{supp_proofs}
+\input{supp_experiments}
+\input{supp_data}
+
+\bibliographystyle{apalike}
+\bibliography{refs}
+
+\end{document}

@@ -1,0 +1,130 @@
+\section{Representation, identifiability, and finite-$n$ calibration}
+\label{sec:representation}
+
+\subsection{The characterization}
+
+The following theorem is the foundation of the paper. The
+representation, including the symmetric case, is due to
+\citet{kallenberg1988some,kallenberg1995multivariate}, as synthesized
+in \citet[Chapter~8]{kallenberg2005probabilistic}; our contribution is the packaging as a statistical model class, the
+equivalence with orthogonal invariance plus sampling consistency for
+network models, now internal to the theorem, and the statistical
+program built on the class. The Supplement proves the theorem in full
+from \citet[Theorem~5.1]{kallenberg1988some}, including uniqueness of
+the mixing measure, measurability of the parameterization, and
+almost-sure convergence simultaneous over all entries. Throughout,
+$W$ denotes a symmetric array with $W_{ij}\sim N(0,1)$ for $i<j$,
+$W_{ii}\sim N(0,2)$, independent entries (the infinite GOE pattern), and
+$(\xi_{ki})_{k,i\in\N}$ an independent array of i.i.d.\ $N(0,1)$ variables.
+
+\begin{theorem}[Spiked representation of rotatable networks]
+\label{thm:rep}
+Let $X$ be a random element of $\Sym_\infty$. The following are equivalent.
+\begin{enumerate}[label=(\roman*),itemsep=1pt,topsep=2pt]
+\item $X$ is jointly rotatable.
+\item $X$ is a mixture of \emph{ergodic} laws
+$R_{\rho,\sigma,\blam}$, $\rho\in\R$, $\sigma\ge0$,
+$\blam=(\lam_k)\in\ell_2$, where under $R_{\rho,\sigma,\blam}$
+\begin{equation}
+\label{eq:rep}
+X_{ij} \;=\; \rho\,\delta_{ij} \;+\; \sigma W_{ij}
+\;+\; \sum_{k=1}^{\infty} \lam_k\bigl(\xi_{ki}\xi_{kj}-\delta_{ij}\bigr),
+\end{equation}
+the series converging almost surely and in $L^2$, simultaneously
+over all entries.
+\end{enumerate}
+With $\blam$ in the canonically ordered space $\ell_{2,*}$ of
+Section~\ref{sec:setup}, the mixing measure over
+$(\rho,\sigma,\blam)$ is unique, and the $R_{\rho,\sigma,\blam}$ are
+exactly the ergodic (extreme) rotatable laws. A network model
+$\{P_n\}$ is orthogonally invariant and sampling-consistent if and
+only if each $P_n$ is the corner law of one such mixture, with the
+same, again unique, mixing measure for every $n$.
+\end{theorem}
+
+First, with $\Xi_k=(\xi_{k1},\xi_{k2},\dots)$ the ergodic law is an
+infinite-width analogue of $\sigma\,(\text{Wigner noise}) +
+\sum_k\lam_k\,\Xi_k\Xi_k^\top$, the low-rank-plus-noise structure
+spiked random matrix practice assumes, here the unique class closed
+under the two properties of Definition~\ref{def:consistent}; it is the
+eigenmodel of \citet{hoff2008eigenmodel} with isotropic Gaussian
+latent positions, derived from the symmetry, and the rotational
+freedom in the factor index removes any basis choice, making the
+spectrum canonical. Second,
+$(\sigma,\blam)$ replaces the graphon: a scalar and a point in $\ell_{2,*}$, identified exactly in the
+canonical order, with negative $\lam_k$ allowed (disassortative
+components); under each ergodic law eigenvector supports are Haar-generic:
+privileged node clusters are excluded, low-dimensional signal is kept. Third,
+a network observes the hollow part of $X$: $\rho$ is invisible and the
+diagonal terms of \eqref{eq:rep} are unobserved. We write $P^{\mathrm{net}}_{\sigma,\blam}$
+for the law of the hollow array $(X_{ij})_{i\ne j}$ under
+$R_{0,\sigma,\blam}$ and call it the \emph{ergodic rotatable network law}.
+For inference we adopt the zero-diagonal completion (a hollow observed
+matrix is completed with zeros); Remark~\ref{rem:hollow} in
+Section~\ref{sec:test} states the exact scope of the test under this
+convention. What the class excludes is equally concrete: the graphon-Gaussian model, $X_{ij}=w(U_i,U_j)$ plus independent
+Gaussian noise with nonconstant smooth $w$, degree heterogeneity, localized hubs, and
+geometric structure all violate \eqref{eq:rotdef}, and
+Section~\ref{sec:test} shows they are detectable.
+
+
+
+\subsection{Identifiability and the collapse of moment structure}
+
+For binary exchangeable graphs, the homomorphism densities over all
+finite graphs determine the graphon up to equivalence
+\citep{lovasz2012large}. Under rotatability the moment structure
+collapses to cycles. For distinct indices $i_1,\dots,i_m$ and $m\ge3$,
+\begin{equation}
+\label{eq:cycles}
+\E\bigl[X_{i_1i_2}X_{i_2i_3}\cdots X_{i_mi_1}\bigr] \;=\; p_m(\blam)
+\;=\;\sum_k \lam_k^m ,
+\qquad
+\E\bigl[X_{12}^2\bigr] \;=\; \sigma^2 + p_2(\blam),
+\end{equation}
+and the expectation of $\prod_{e\in F}X_e$ vanishes whenever some edge
+of the finite simple graph $F$ lies in no cycle (in particular for every
+tree), while for $F$ a vertex-disjoint union of cycles it equals the
+product of the corresponding power sums. The scope is exact: cycles
+sharing a vertex and repeated edges generate additional terms, and
+Proposition~S1 in the Supplement states the boundary cases. These
+identities identify $(\sigma^2,\{\lam_k\})$ from the ergodic law and
+give a moment method, empirical cycle averages estimating power sums and
+Newton's identities converting power sums to eigenvalues; the spectral
+route of the next subsection is more efficient in practice, but
+\eqref{eq:cycles} shows the moment information in this graph family is
+carried by cycle counts, with the bivariate graphon replaced by one real
+sequence.
+
+\subsection{Finite-$n$ calibration}
+\label{sec:bbp}
+
+Fix an ergodic law and observe its $n\times n$ corner $X_n$. Normalizing
+by $\sqrt n$ puts the noise on the standard Wigner scale:
+\[
+\frac{X_n}{\sqrt n} \;=\; \frac{\sigma}{\sqrt n} W_n
+\;+\;\sum_k \bigl(\sqrt n\,\lam_k\bigr)\,u_k^{(n)}u_k^{(n)\top} + o_P(1),
+\qquad u_k^{(n)} = \Xi_k^{(n)}/\lVert\Xi_k^{(n)}\rVert,
+\]
+so the ergodic component behaves, at sample size $n$, as a spiked Wigner
+matrix with effective spikes $s_k=\sqrt n\,\lam_k/\sigma$, and classical
+spiked-Wigner asymptotics
+\citep{feral2007largest,capitaine2009largest,benaych2011eigenvalues}
+transfer directly. Proposition~S2 in the Supplement records the three
+consequences the paper uses. Every nonzero $\lam_k$ is eventually
+resolved: $\mu_k\toas s_k+1/s_k$ once $s_k>1$, and the number of
+eigenvalues of $X_n/(\sigma\sqrt n)$ outside $[-2,2]$ converges a.s.\ to
+the number of nonzero spikes. Against local sequences
+$\lam^{(n)}=c\,n^{-1/2}$ the boundary is $c=\sigma$: below it the spiked and null sequences are contiguous and no consistent test
+exists \citep{onatski2013asymptotic,perry2018optimality};
+above it the top eigenvector attains squared overlap $1-c^{-2}\sigma^2$
+with the planted factor. And the parameters are estimable by plug-in:
+$\hat\sigma$ from the bulk upper quartile, $\hat\lam_k$ from
+$\psi^{-1}(\mu_k)$ with $\psi(s)=s+1/s$, and $\hat K$ from the count of
+outliers, all strongly consistent. Observing more nodes does not change
+the array; it changes which eigenvalues the corner resolves, and the
+boundary $\lam\asymp n^{-1/2}$ prices the noise. Above the boundary,
+estimation of the ergodic parameter is a sequence problem with parametric
+rates, while graphon estimation has nonparametric rates
+\citep{gao2015rate,klopp2017oracle}; optimal shrinkage refinements
+\citep{donoho2018optimal} apply unchanged.

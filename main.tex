@@ -1,0 +1,141 @@
+% ================================================================
+% Rotatable Networks. JASA (Theory & Methods) submission draft.
+% Compile: pdflatex main -> bibtex main -> pdflatex main x2,
+% then compile supplement.tex the same way (it reads main.aux via xr).
+% Set \blind to 1 for the review version, 0 for the unblinded version.
+% At template adoption, switch to the ASA/Taylor & Francis class and its
+% agsm-style .bst (not installed in this build environment; apalike is
+% the stand-in author-year style until then).
+% ================================================================
+\documentclass[12pt]{article}
+\newcommand{\blind}{1}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage[protrusion=true,expansion=false]{microtype}
+\usepackage[round]{natbib}
+\usepackage{setspace}
+\usepackage{caption}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\definecolor{linkink}{RGB}{28,60,120}
+\usepackage[colorlinks=true,linkcolor=linkink,citecolor=linkink,urlcolor=linkink]{hyperref}
+\captionsetup{font={small,stretch=1.05},labelfont=bf}
+
+\doublespacing
+
+% ================================================================
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma}
+\newtheorem{conjecture}{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+% ================================================================
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\OO}{\mathbb{O}}
+\newcommand{\eqd}{\overset{d}{=}}
+\newcommand{\tod}{\overset{d}{\to}}
+\newcommand{\toas}{\overset{\mathrm{a.s.}}{\to}}
+\newcommand{\toP}{\overset{P}{\to}}
+\newcommand{\iid}{\overset{\mathrm{iid}}{\sim}}
+\newcommand{\Sym}{\mathrm{Sym}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\spec}{\operatorname{spec}}
+\newcommand{\hollow}{\operatorname{hollow}}
+\newcommand{\Haar}{\mathrm{Haar}}
+\newcommand{\GOE}{\mathrm{GOE}}
+\newcommand{\SaS}{\mathrm{S}\alpha\mathrm{S}}
+\newcommand{\lam}{\lambda}
+\newcommand{\blam}{\bm{\lambda}}
+\newcommand{\bgam}{\bm{\gamma}}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\title{\bfseries Rotatable Networks}
+
+\ifnum\blind=1
+\author{Author names blinded for review}
+\else
+\author{[Author names]\thanks{[Affiliations, ORCID, correspondence,
+and funding; complete before unblinded submission.]}}
+\fi
+
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Weighted networks (brain connectivity matrices, stock correlation
+matrices, traffic flows) are usually summarized by a handful of
+statistics such as clustering or modularity and judged against an
+informal null model. We study the consequences of one symmetry: a
+random network is rotatable if its distribution is unchanged by
+rotations of the underlying coordinate system. The rotatable network
+models that stay consistent as nodes are added are exactly mixtures of
+spiked Gaussian orthogonal ensembles, an isotropic form of the
+low-rank-plus-noise models assumed in practice; the theory covers
+dense real-weighted networks and excludes sparse binary graphs.
+Within any such model the eigenvalues carry all the information: given
+the eigenvalues, the network is a uniformly random rotation. This
+yields a Monte Carlo test of the symmetry, exact for fully observed
+matrices and with a quantified size bound for zero-diagonal data, and
+a conditional residual for every network statistic. An extension
+covers heavy-tailed networks. On a human connectome, stock
+correlations, and air traffic, eigenvalue reconstruction is high for
+clustering, modularity, and kurtosis, while localization and strength
+heterogeneity carry the conditional signal, attributed to named nodes
+with exact familywise control.
+\end{abstract}
+
+\noindent{\bfseries Keywords:} exchangeable arrays; Haar measure;
+randomization inference; spiked random matrices; graphon; stable
+distributions
+
+\newpage
+
+\input{sec_intro}
+\input{sec_setup}
+\input{sec_representation}
+\input{sec_sufficiency}
+\input{sec_test}
+\input{sec_lp}
+\input{sec_experiments}
+\input{sec_discussion}
+
+\ifnum\blind=0
+\section*{Acknowledgments}
+[Personal and funding acknowledgments; unblinded version only.]
+
+\section*{Disclosure of generative AI use}
+In accordance with the Taylor \& Francis policy on artificial
+intelligence, the authors disclose that a generative AI assistant
+(Claude, Anthropic; [record the model version used]) was used, under
+author direction, to draft and revise manuscript text, to write and
+refactor the simulation and analysis code released with the paper, and
+to draft the proof of Proposition~\ref{prop:robust}. The authors
+specified the mathematical content, verified all statements and proofs,
+re-ran all released code, and take full responsibility for the content.
+The tool was not used to create or alter research data.
+\fi
+
+% Reference-list spacing: the official ASA/T&F template governs final
+% spacing; 1.5 here keeps this stand-in build within the page ceiling.
+\begin{spacing}{1.0}\small\setlength{\bibsep}{2pt}
+\bibliographystyle{apalike}
+\bibliography{refs}
+\end{spacing}
+
+\end{document}

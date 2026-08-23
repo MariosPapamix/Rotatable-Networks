@@ -1,0 +1,70 @@
+\section{From exchangeability to rotatability}
+\label{sec:setup}
+
+\subsection{Two symmetries}
+
+Let $X=(X_{ij})_{i,j\in\N}$ be a random element of $\Sym_\infty$, the
+symmetric real arrays. Exchangeability is invariance under the permutation
+action $(\pi\cdot X)_{ij}=X_{\pi(i)\pi(j)}$ for finite permutations $\pi$.
+The Aldous--Hoover theorem represents every such array as
+$X_{ij}=f(\alpha,U_i,U_j,\varepsilon_{ij})$ with i.i.d.\ uniform latent
+variables; the ergodic components are indexed by the measurable kernel $f$, a
+weighted graphon with edge noise
+\citep{aldous1981representations,hoover1979relations}.
+
+Rotatability replaces the countable permutation group by the larger
+finitary orthogonal group. Embed $U\in\OO(n)$ into the infinite orthogonal matrices
+fixing all coordinates beyond $n$, $\tilde U=U\oplus I$.
+
+\begin{definition}[Joint rotatability]
+\label{def:rot}
+$X$ is \emph{jointly rotatable} if $\tilde U X \tilde U^\top \eqd X$ for
+every $n$ and every $U\in\OO(n)$.
+\end{definition}
+
+Permutation matrices are orthogonal, so a jointly rotatable array is
+exchangeable: rotatability is a submodel of the graphon class, and
+Section~\ref{sec:test} tests the submodel within the model. The
+qualifier \emph{joint} distinguishes \eqref{eq:rotdef} from
+\emph{separate} rotatability for rectangular arrays
+\citep{aldous1981representations}; symmetric networks require the
+joint action. The cost of the stronger symmetry is support, Gaussian
+ergodic components (Theorem~\ref{thm:rep}), so binary graphs are
+outside the theory and the intended scope is dense real-weighted
+networks.
+
+\subsection{Sampling consistency}
+\label{sec:consistency}
+
+A statistical model for networks is a family $\{P_n\}_{n\ge1}$, $P_n$ a law
+on $\Sym_n$, describing data observed on $n$ nodes. Two closure properties
+are natural.
+
+\begin{definition}
+\label{def:consistent}
+$\{P_n\}$ is \emph{orthogonally invariant} if $X\sim P_n$ implies
+$UXU^\top\sim P_n$ for all $U\in\OO(n)$. It is \emph{sampling-consistent}
+if the leading $(n-1)\times(n-1)$ corner of $X\sim P_n$ has law $P_{n-1}$.
+\end{definition}
+
+Sampling consistency is the projectivity requirement underlying exchangeable
+network theory \citep{orbanz2015bayesian}: the model must not change when one
+more node is observed. Finite invariance alone does not restrict the
+spectral law: for fixed $n$, orthogonal invariance says only that
+$X = U D U^\top$ with $U$ Haar distributed and independent of the
+eigenvalues $D$, and any law for $D$ qualifies. The next section shows that
+adding sampling consistency reduces this class to mixtures of spiked
+Gaussian ensembles.
+
+The extension step, that $\{P_n\}$ is orthogonally invariant and
+sampling-consistent if and only if it is the family of corner laws of
+one jointly rotatable array with a unique law, is part of
+Theorem~\ref{thm:rep} below. For parameter identification we fix the
+canonical order on spike sequences: $a\succeq_*b$ if $|a|>|b|$, or
+$|a|=|b|$ and $a\ge b$, and $\ell_{2,*}$ is the set of
+$\blam\in\ell_2$ with $\lam_k\succeq_*\lam_{k+1}$ for every $k$; each
+signed multiset of nonzero square-summable coefficients has exactly
+one representative in $\ell_{2,*}$, zeros appended when finite. For
+probability measures on one space,
+$d_{\mathrm{TV}}(\mu,\eta):=\sup_A|\mu(A)-\eta(A)|$, and for bounded
+$g$, $\operatorname{osc}(g):=\sup g-\inf g$.

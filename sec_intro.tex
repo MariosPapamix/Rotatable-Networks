@@ -1,0 +1,245 @@
+\section{Introduction}\label{sec:intro}
+
+Many scientific fields analyze data in the form of a real symmetric
+weighted network on $n$ nodes. Network neuroscience studies functional
+connectomes, matrices of correlations between the activity of brain
+regions \citep{bullmore2009complex,rubinov2010complex}; genomics studies
+gene co-expression networks \citep{zhang2005general}; empirical finance
+studies correlation matrices of asset returns
+\citep{laloux1999noise,plerou2002random}. Standard practice computes scalar summaries, weighted clustering,
+modularity, path length, strength heterogeneity, and interprets them
+against a null ensemble. The stated model is almost always ``low-rank
+signal plus rotation-invariant noise,'' analyzed with spiked random
+matrix theory
+\citep{johnstone2001distribution,baik2005phase,benaych2011eigenvalues};
+the low-rank structure is a modeling choice, motivated by empirical
+spectra and imposed without derivation. The nonparametric alternative,
+exchangeable network theory, represents any weighted network with
+exchangeable node labels by a bivariate graphon
+\citep{aldous1981representations,hoover1979relations}, but the graphon
+is difficult to estimate even for binary graphs
+\citep{wolfe2013nonparametric,gao2015rate,klopp2017oracle} and supplies
+no finite-sample null distribution for the summaries practitioners
+report.
+
+Three questions arise. Is there a symmetry assumption
+under which the model class used in practice is forced by first
+principles? Under that model class, which network statistics carry
+information beyond the eigenvalues of the observed matrix? And can
+departures from the symmetry be tested exactly, at finite $n$, without
+estimating parameters or choosing a generative null?
+
+This paper answers the three questions by strengthening the symmetry
+that underlies exchangeable network theory. Node labels in a weighted
+network are arbitrary, and in the applications above something more is
+arbitrary as well: a correlation network is computed from node-level
+signals whose coordinate system is a convention, and the natural
+invariance for such data is invariance under rotation of the node space
+in addition to relabeling. We therefore study jointly rotatable arrays,
+random symmetric $X$ with
+\begin{equation}\label{eq:rotdef}
+U X U^{\top} \eqd X \quad\text{for every finite orthogonal } U,
+\end{equation}
+a notion whose probabilistic theory is due to
+\citet{freedman1962invariants,dawid1977,aldous1981representations} and
+\citet{kallenberg1995multivariate,kallenberg2005probabilistic}. Two facts motivate \eqref{eq:rotdef} here. If $X = h(Y^{\top}Y)$ for a
+$T\times n$ panel $Y$ of node-level signals that are jointly Gaussian
+with an isotropic prior on loading directions, and $h$ is
+conjugation-equivariant ($h(UGU^\top)=Uh(G)U^\top$; the identity or
+any spectral function), then $YU^{\top}\eqd Y$ and hence
+$UXU^{\top}\eqd X$: rotatability is inherited from isotropy of the
+latent coordinate system. Entrywise transforms such as Fisher-$z$ are
+not equivariant; they enter through the preprocessing clause of
+Proposition~\ref{prop:robust}, not through this inheritance. And any analysis that models a network as signal plus
+rotation-invariant noise has already assumed \eqref{eq:rotdef} for the
+noise; we impose the symmetry on the whole object. The invariance acts
+on the latent coordinate system that generates the data, the named
+nodes are never claimed interchangeable, and rotatability functions
+throughout as a sharp reference null. The cost of the stronger
+symmetry is support: rotatable laws have Gaussian ergodic components, so
+the theory covers dense real-valued networks and excludes sparse binary
+graphs.
+
+Combining \eqref{eq:rotdef} with sampling consistency, the requirement
+that the model does not change when one more node is observed,
+characterizes the model class: a network model is orthogonally
+invariant and sampling-consistent if and only if it is a mixture of
+spiked Gaussian orthogonal ensembles (Theorem~\ref{thm:rep}). The probabilistic core, including the symmetric case, is the
+representation theory of
+\citet{kallenberg1988some,kallenberg1995multivariate,kallenberg2005probabilistic};
+the characterization of sampling-consistent network models, and the
+statistical program built on it, are, to our knowledge, new. The bivariate graphon reduces, under the stronger symmetry, to a
+noise level $\sigma$ and a square-summable eigenvalue sequence
+$\blam$, and the relevant moments reduce to cycles: cycle expectations
+equal power sums of $\blam$, tree expectations vanish, and a product formula holds for vertex-disjoint unions of
+cycles (Proposition~S1 in the Supplement), giving identifiability and a
+method of moments.
+
+Three statistical consequences follow. Under any rotatable model the
+ordered spectrum of the observed network is sufficient, and
+conditionally on the spectrum the network is a Haar-random rotation of
+it, for every value of the parameter (Theorem~\ref{thm:suff}); the
+conditional distribution of any non-spectral statistic given the
+eigenvalues is therefore parameter-free (Corollary~S1 in the
+Supplement). The conditional representation yields a finite-sample Monte Carlo
+test of rotatability, re-rotating the observed spectrum and
+recomputing any battery of statistics (Theorem~\ref{thm:test}): no
+parameters are estimated, the composite null is covered, calibration holds for any observed spectral shape and is exact when
+the full matrix is observed; against the same rotatable truth, a weight-permutation null, which calibrates a different hypothesis,
+rejects $51\%$ of the time (Section~\ref{sec:exp-test}).
+Constrained observations, hollow or unit-diagonal, are outside the
+total-variation route by a mutual-singularity obstruction (Supplement,
+Remark~S1); the pipeline's guarantee is instead statistic-level, with
+an explicit concentration modulus and rate
+$n^{-1/4}(\log n)^{1/2}$ (Proposition~\ref{prop:hollowrate}), and
+size is measured in Section~\ref{sec:experiments}. Consistency holds
+against localized alternatives such as hubs and modules
+(Proposition~S3), with the exact-null status of spherical spikes and the consistency
+threshold recorded in Corollary~S2. The same draws produce, for each statistic, a conditional residual,
+the difference between the observed value and its Haar-conditional
+expectation given the spectrum, proposed as the standard output: it
+quantifies exactly the part of each summary that the eigenvalues do
+not determine.
+And embedding the ergodic law in growing corners shows that the
+Baik--Ben~Arous--P\'ech\'e transition
+\citep{baik2005phase,feral2007largest,benaych2011eigenvalues} describes
+the finite-$n$ resolution of a fixed infinite network, with effective
+spikes $\sqrt{n}\,\lam_k/\sigma$, an $n^{-1/2}$ detection boundary, and
+consistent plug-in estimation above it (Proposition~S2).
+
+A secondary contribution extends the symmetry beyond the Gaussian case.
+Replacing the rotation group by the symmetry that characterizes
+$\ell_p$, $p\in(0,2)$, in the sense of matched-norm quadratic forms, we
+construct spiked symmetric $p$-stable ensembles, prove that they are
+$p$-rotatable, and show that the invariance forces a canonical
+diagonal-to-off-diagonal scale ratio $2^{(p-1)/p}$
+(Theorem~\ref{thm:stable}); completeness at the array level is open
+(Conjecture~\ref{conj:stable}). With no $p$-analogue of the Haar frame
+there is no exact conditional test at $p<2$; as a surrogate we test
+rotatability of the normal-scores transform, which separates marginal,
+tail-driven departures from persistent eigenvector localization
+(Section~\ref{sec:diagnostic}).
+
+Rotatability is proposed as a sharp null hypothesis; its value lies
+in what a rejection localizes. Anatomical, sector, and geographic structure are expected departures
+in brains, markets, and traffic, and the real-data analyses reject
+strict rotatability through exactly the statistics the theory predicts
+must carry such violations; the
+scientific output is the direction of rejection and the conditional
+residuals. On the data of
+Section~\ref{sec:experiments}, several routinely tabulated summaries
+are close to their Haar-conditional expectations, while eigenvector
+localization carries the non-spectral signal.
+
+\subsection{Contributions}
+
+\begin{enumerate}[leftmargin=1.7em,itemsep=0.1em]
+\item \emph{Characterization} (Section~\ref{sec:representation}).
+Theorem~\ref{thm:rep}: a weighted network model is orthogonally
+invariant and sampling-consistent if and only if it is a mixture of
+spiked Gaussian orthogonal ensembles, with unique mixing measure over
+$(\rho,\sigma,\blam)\in\R\times\R_{+}\times\ell_{2,*}$; cycle moments
+identify $(\sigma,\blam)$ (Proposition~S1).
+\item \emph{Exact conditional inference} (Sections~\ref{sec:sufficiency}
+and \ref{sec:test}). Theorem~\ref{thm:suff}: the spectrum is sufficient
+with Haar conditionals, for every rotatable model, so non-spectral
+summaries are conditionally parameter-free (Corollary~S1).
+Theorem~\ref{thm:test}: an exact finite-sample Monte Carlo test of the
+composite null, estimating no parameters, calibrated for any observed
+spectrum, reported with conditional residuals
+(Definition~\ref{def:residual}).
+\item \emph{Guarantees and calibration}. Size at most
+$\alpha+\varepsilon$ under $\varepsilon$-approximate rotatability of
+the fully observed matrix, with a preprocessing clause and a
+bounded-loss risk bound (Proposition~\ref{prop:robust}); a
+statistic-level size guarantee for the zero-completion pipeline with
+concentration modulus and rate $n^{-1/4}(\log n)^{1/2}$
+(Proposition~\ref{prop:hollowrate}); nodewise attribution with exact
+familywise control (Sections~\ref{sec:test}
+and~\ref{sec:exp-nodewise}); consistency
+against supercritical localized spikes (Proposition~S3); the
+Baik--Ben~Arous--P\'ech\'e transition as the resolution limit of a
+fixed network, with consistent plug-in estimation (Proposition~S2);
+empirical size checks for the hollow and finite-$T$ correlation
+pipelines (Section~\ref{sec:experiments}).
+\item \emph{Heavy tails and experiments} (Sections~\ref{sec:lp} and
+\ref{sec:experiments}). Spiked symmetric $p$-stable ensembles are
+$p$-rotatable with a canonical diagonal (Theorem~\ref{thm:stable});
+completeness is Conjecture~\ref{conj:stable}; a Gaussianization
+diagnostic with explicit surrogate status; analyses of a human
+connectome, S\&P~500 correlation networks, an air-traffic network, and
+a synthetic cohort study, labeled as such, with released code and fixed
+seeds.
+\end{enumerate}
+
+Sections~\ref{sec:setup}--\ref{sec:experiments} develop the setup,
+the characterization, sufficiency and the exact test, heavy tails, and
+the experiments; the Supplement contains all proofs and deferred
+statements.
+
+\subsection{Related work}\label{sec:related}
+
+Exchangeable arrays and graph limits are surveyed by
+\citet{austin2008exchangeable,orbanz2015bayesian,lovasz2012large}
+(sparse extensions:
+\citealp{caron2017sparse,borgs2019lp}); rotatable arrays are due to
+\citet{aldous1981representations,kallenberg1988some,kallenberg1995multivariate},
+synthesized in \citet[Chapter~8]{kallenberg2005probabilistic}, with
+antecedents \citep{freedman1962invariants,dawid1977,schoenberg1938,vershik2002}. The nearest
+statistical relative is the Dovbysh--Sudakov representation of
+exchangeable positive semidefinite arrays, structural in spin glasses
+\citep{dovbysh1982gram,panchenko2013sherrington} but not, to our
+knowledge, used as a data model; we could locate no application of
+rotatable arrays to network data. Spiked models, the BBP transition, shrinkage, detection limits, and
+delocalization:
+\citet{johnstone2001distribution,baik2005phase,feral2007largest,capitaine2009largest,benaych2011eigenvalues,bai2008central,donoho2018optimal,onatski2013asymptotic,perry2018optimality,orourke2016eigenvectors}.
+Network-neuroscience summaries and null models:
+\citet{bullmore2009complex,rubinov2010complex,vasa2022null}; weighted
+clustering \citep{onnela2005intensity}; modularity \citep{newman2006}.
+Financial correlation matrices:
+\citet{laloux1999noise,plerou2002random,bouchaud2009}. Stable laws and
+$L^p$-symmetric sequences:
+\citet{bretagnolle1966lois,cambanis1983alpha,samorodnitsky1994stable}.
+Rotation tests based on random orthogonal transformations exist in
+multivariate analysis \citep{langsrud2005rotation,perry2010rotation};
+Theorem~\ref{thm:test} differs in conditioning on the observed
+spectrum, which fixes the reference distribution for the whole
+composite class. General theory for group-invariance randomization
+covers validity and power for compact groups
+\citep{dobriban2022consistency,koning2024more}; Theorem~\ref{thm:test}
+is its $\OO(n)$-orbit instantiation with the spectrum as maximal
+invariant, and the network content of the paper lies in
+Theorems~\ref{thm:rep} and \ref{thm:suff} and the residual protocol.
+Theorem~\ref{thm:rep} identifies the ergodic class with the eigenmodel
+of \citet{hoff2008eigenmodel} under isotropic Gaussian latent
+positions, a first-principles derivation of a model already in
+statistical use. Our sufficiency and testing arguments otherwise use
+classical invariance tools \citep{eaton1989group,lehmann2005testing},
+and the exactness of Monte Carlo randomization tests goes back to
+\citet{dwass1957}; see \citet{hemerik2018exact}. Eigenvector randomization heuristics
+circulate in network neuroscience \citep{vasa2022null};
+Theorem~\ref{thm:test} identifies the hypothesis such procedures test
+and supplies exact level, and Corollary~S1 characterizes what they
+cannot detect.
+
+\subsection{Notation}\label{sec:notation}
+
+$\Sym_n$ is the space of real symmetric $n\times n$ matrices and
+$\OO(n)$ the orthogonal group with Haar probability measure $\Haar_n$.
+For an infinite symmetric array $X=(X_{ij})_{i,j\in\N}$, $X_n$ denotes
+its leading principal $n\times n$ submatrix (its corner). A network is
+a hollow symmetric array (zero diagonal), the diagonal being unobserved
+or conventionally zero; $\hollow(A)$ zeroes the diagonal of $A$. $W$
+denotes a symmetric array with independent entries $W_{ij}\sim N(0,1)$
+for $i<j$ and $W_{ii}\sim N(0,2)$ (the infinite GOE pattern), and
+$\GOE(n)$ its $n\times n$ corner. For $\blam=(\lam_k)\in\ell_2$ we
+write $p_m(\blam)=\sum_k\lam_k^m$, $m\ge 2$. $\Delta_n:=\{d\in\R^n:d_1\ge\cdots\ge d_n\}$ collects ordered
+vectors, and $D(A)\in\Delta_n$ is the
+vector of eigenvalues of $A\in\Sym_n$ in decreasing order; on the event
+of simple spectrum, $V(A)\in\OO(n)$ is the eigenvector matrix with the
+sign convention that the largest-magnitude entry of each column is
+positive, so $A=V\diag(D)V^{\top}$. Localization statistics use the
+$K_{\mathrm{loc}}=10$ eigenpairs with the largest absolute eigenvalues;
+this ordering is used only there and is stated where it applies. The
+effective spike of $\lam_k$ at sample size $n$ is
+$s_k=\sqrt{n}\,\lam_k/\sigma$. All proofs are in the Supplement.
